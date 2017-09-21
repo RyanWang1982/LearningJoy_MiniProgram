@@ -1,0 +1,35 @@
+/**
+ *
+ */
+package wang.yongrui.learningjoy.wechat.miniprogram.entity.basic;
+
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
+
+import lombok.Getter;
+import lombok.Setter;
+import wang.yongrui.wechat.fundamental.entity.fundamental.AuditingEntity;
+
+/**
+ * @author Wang Yongrui
+ *
+ */
+@MappedSuperclass
+@Getter
+@Setter
+public class StudentPerformanceBasic extends AuditingEntity {
+
+	@Id
+	@GeneratedValue
+	private Long id;
+
+	private Integer score;
+
+	private String good;
+
+	private String poor;
+
+	private String attention;
+
+}
