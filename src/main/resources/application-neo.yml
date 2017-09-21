@@ -1,0 +1,14 @@
+# Spring
+spring:
+  application:
+    name: LearningJoy
+  datasource:
+    jndi-name: java:comp/env/jdbc/NEO_HANA
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.HANAColumnStoreDialect
+
+# Server
+server:
+  context-path: /LearningJoy/MiniProgram
