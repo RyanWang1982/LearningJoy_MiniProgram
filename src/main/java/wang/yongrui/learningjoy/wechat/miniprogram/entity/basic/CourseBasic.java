@@ -34,6 +34,8 @@ public class CourseBasic extends AuditingEntity {
 
 	private String recurringRule;// Using the way as @Scheduled
 
+	private String reminderScheduleRule;// Using the way as @Scheduled
+
 	private Integer times;
 
 	private Integer duration;

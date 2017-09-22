@@ -25,6 +25,10 @@ public class HomeworkBasic extends AuditingEntity {
 	@GeneratedValue
 	private Long id;
 
+	private String description;
+
+	private String reminderScheduleRule;// Using the way as @Scheduled
+
 	private ScoreType scoreType;
 
 	private Integer score;
