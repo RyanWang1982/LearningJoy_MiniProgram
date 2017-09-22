@@ -24,8 +24,13 @@ import wang.yongrui.learningjoy.wechat.miniprogram.entity.basic.LessonBasic;
 public class LessonEntity extends LessonBasic {
 
 	@ManyToMany
-	@JoinTable(name = "COURSE_LESSON", joinColumns = { @JoinColumn(name = "lesson_id") }, inverseJoinColumns = {
-			@JoinColumn(name = "course_id") })
+	@JoinTable(name = "LESSON_PERFORMANCE", joinColumns = { @JoinColumn(name = "lesson_id") }, inverseJoinColumns = {
+			@JoinColumn(name = "student_preformance_id") })
 	private Set<StudentPerformanceEntity> studentPerformanceSet;
+
+	@ManyToMany
+	@JoinTable(name = "LESSON_HOMEWORK", joinColumns = { @JoinColumn(name = "lesson_id") }, inverseJoinColumns = {
+			@JoinColumn(name = "homework_id") })
+	private Set<HomeworkEntity> homeworkSet;
 
 }

@@ -1,5 +1,5 @@
 /**
- *
+ * 
  */
 package wang.yongrui.learningjoy.wechat.miniprogram.entity.basic;
 
@@ -19,7 +19,7 @@ import wang.yongrui.wechat.fundamental.entity.fundamental.AuditingEntity;
 @MappedSuperclass
 @Getter
 @Setter
-public class StudentPerformanceBasic extends AuditingEntity {
+public class HomeworkBasic extends AuditingEntity {
 
 	@Id
 	@GeneratedValue
