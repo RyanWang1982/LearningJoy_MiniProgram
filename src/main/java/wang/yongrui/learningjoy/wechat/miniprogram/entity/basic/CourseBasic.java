@@ -3,6 +3,8 @@
  */
 package wang.yongrui.learningjoy.wechat.miniprogram.entity.basic;
 
+import java.util.Calendar;
+
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
@@ -32,11 +34,15 @@ public class CourseBasic extends AuditingEntity {
 
 	private String address;
 
+	private Calendar startDate;
+
+	private Calendar endDate;
+
+	private String time;
+
 	private String recurringRule;// Using the way as @Scheduled
 
-	private String reminderScheduleRule;// Using the way as @Scheduled
-
-	private Integer times;
+	private Integer recurringTimes;
 
 	private Integer duration;
 

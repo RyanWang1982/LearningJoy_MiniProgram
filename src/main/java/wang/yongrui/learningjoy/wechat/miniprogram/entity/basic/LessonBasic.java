@@ -30,7 +30,7 @@ public class LessonBasic extends AuditingEntity {
 
 	private String description;
 
-	private Calendar date;
+	private Calendar dateTime;
 
 	private String address;
 
