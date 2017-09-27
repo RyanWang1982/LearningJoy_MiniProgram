@@ -1,9 +1,10 @@
 /**
- * 
+ *
  */
 package wang.yongrui.learningjoy.wechat.miniprogram.entity.web;
 
 import java.util.Collection;
+import java.util.Set;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -27,7 +28,7 @@ import wang.yongrui.wechat.fundamental.entity.basic.UserBasic;
 public class WeChatUser extends UserBasic implements UserDetails {
 
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 1L;
 
@@ -35,9 +36,33 @@ public class WeChatUser extends UserBasic implements UserDetails {
 	@Setter
 	private WeChatUserBasic weChatInfo;
 
+	@Getter
+	@Setter
+	private UserSetting userSetting;
+
+	@Getter
+	@Setter
+	private Set<WeChatUser> childSet;
+
+	@Getter
+	@Setter
+	private Set<WeChatUser> parentSet;
+
+	@Getter
+	@Setter
+	private Set<Course> teacherCourseSet;
+
+	@Getter
+	@Setter
+	private Set<Course> studentCourseSet;
+
+	@Getter
+	@Setter
+	private Set<Notice> noticeSet;
+
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see
 	 * org.springframework.security.core.userdetails.UserDetails#getAuthorities(
 	 * )
@@ -49,7 +74,7 @@ public class WeChatUser extends UserBasic implements UserDetails {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see
 	 * org.springframework.security.core.userdetails.UserDetails#getPassword()
 	 */
@@ -60,7 +85,7 @@ public class WeChatUser extends UserBasic implements UserDetails {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.springframework.security.core.userdetails.UserDetails#
 	 * isAccountNonExpired()
 	 */
@@ -71,7 +96,7 @@ public class WeChatUser extends UserBasic implements UserDetails {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.springframework.security.core.userdetails.UserDetails#
 	 * isAccountNonLocked()
 	 */
@@ -82,7 +107,7 @@ public class WeChatUser extends UserBasic implements UserDetails {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.springframework.security.core.userdetails.UserDetails#
 	 * isCredentialsNonExpired()
 	 */
@@ -93,7 +118,7 @@ public class WeChatUser extends UserBasic implements UserDetails {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see
 	 * org.springframework.security.core.userdetails.UserDetails#isEnabled()
 	 */

@@ -11,6 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -22,12 +23,15 @@ import wang.yongrui.wechat.fundamental.entity.persistence.UserEntity;
  *
  */
 @Entity
-@DiscriminatorValue("wechat")
+@DiscriminatorValue("WeChat")
 @Getter
 @Setter
 public class WeChatUserEntity extends UserEntity {
 
 	private WeChatUserBasic weChatUserBasic;
+
+	@OneToOne
+	private UserSettingEntity userSetting;
 
 	// Parent has children
 	@ManyToMany(cascade = CascadeType.MERGE)
@@ -45,13 +49,13 @@ public class WeChatUserEntity extends UserEntity {
 	@ManyToMany(cascade = CascadeType.MERGE)
 	@JoinTable(name = "TEACHER_COURSE", joinColumns = { @JoinColumn(name = "teacher_id") }, inverseJoinColumns = {
 			@JoinColumn(name = "course_id") })
-	private Set<CourseEntity> teacherCourseEntity;
+	private Set<CourseEntity> teacherCourseEntitySet;
 
 	// Student takes courses
 	@ManyToMany(cascade = CascadeType.MERGE)
 	@JoinTable(name = "STUDENT_COURSE", joinColumns = { @JoinColumn(name = "student_id") }, inverseJoinColumns = {
 			@JoinColumn(name = "course_id") })
-	private Set<CourseEntity> studentCourseEntity;
+	private Set<CourseEntity> studentCourseEntitySet;
 
 	// User receives notices
 	@ManyToMany(cascade = CascadeType.MERGE)

@@ -25,7 +25,7 @@ import wang.yongrui.learningjoy.wechat.miniprogram.entity.basic.StudentPerforman
 public class StudentPerformanceEntity extends StudentPerformanceBasic {
 
 	@OneToOne
-	private WeChatUserEntity student;
+	private WeChatUserEntity studentEntity;
 
 	@OneToMany
 	@JoinTable(name = "STUDENT_PERFORMANCE_FILE", joinColumns = {

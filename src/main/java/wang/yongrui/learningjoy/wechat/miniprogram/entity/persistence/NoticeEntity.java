@@ -25,7 +25,7 @@ import wang.yongrui.learningjoy.wechat.miniprogram.entity.basic.NoticeBasic;
 public class NoticeEntity extends NoticeBasic {
 
 	@OneToOne
-	private WeChatUserEntity sender;
+	private WeChatUserEntity senderEntity;
 
 	@ManyToMany
 	@JoinTable(name = "USER_NOTICE", joinColumns = { @JoinColumn(name = "notice_id") }, inverseJoinColumns = {

@@ -26,11 +26,11 @@ public class LessonEntity extends LessonBasic {
 	@ManyToMany
 	@JoinTable(name = "LESSON_PERFORMANCE", joinColumns = { @JoinColumn(name = "lesson_id") }, inverseJoinColumns = {
 			@JoinColumn(name = "student_preformance_id") })
-	private Set<StudentPerformanceEntity> studentPerformanceSet;
+	private Set<StudentPerformanceEntity> studentPerformanceEntitySet;
 
 	@ManyToMany
 	@JoinTable(name = "LESSON_HOMEWORK", joinColumns = { @JoinColumn(name = "lesson_id") }, inverseJoinColumns = {
 			@JoinColumn(name = "homework_id") })
-	private Set<HomeworkEntity> homeworkSet;
+	private Set<HomeworkEntity> homeworkEntitySet;
 
 }

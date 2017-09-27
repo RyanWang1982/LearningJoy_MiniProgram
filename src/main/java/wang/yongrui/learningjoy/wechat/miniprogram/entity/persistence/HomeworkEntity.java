@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package wang.yongrui.learningjoy.wechat.miniprogram.entity.persistence;
 
@@ -25,7 +25,7 @@ import wang.yongrui.learningjoy.wechat.miniprogram.entity.basic.HomeworkBasic;
 public class HomeworkEntity extends HomeworkBasic {
 
 	@OneToOne
-	private WeChatUserEntity student;
+	private WeChatUserEntity studentEntity;
 
 	@OneToMany
 	@JoinTable(name = "HOMEWORK_FILE", joinColumns = { @JoinColumn(name = "homework_id") }, inverseJoinColumns = {

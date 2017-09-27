@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package wang.yongrui.learningjoy.wechat.miniprogram.controller;
 
@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
  *
  */
 @RestController
-@RequestMapping("/user")
-public class UserController {
+@RequestMapping("/studentPerformance")
+public class StudentPerformanceController {
 
 }
