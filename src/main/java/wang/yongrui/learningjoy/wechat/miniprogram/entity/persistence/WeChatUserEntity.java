@@ -28,7 +28,7 @@ import wang.yongrui.wechat.fundamental.entity.persistence.UserEntity;
 @Setter
 public class WeChatUserEntity extends UserEntity {
 
-	private WeChatUserBasic weChatUserBasic;
+	private WeChatUserBasic weChatInfo;
 
 	@OneToOne
 	private UserSettingEntity userSetting;

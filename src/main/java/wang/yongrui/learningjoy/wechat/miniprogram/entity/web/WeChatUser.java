@@ -6,6 +6,7 @@ package wang.yongrui.learningjoy.wechat.miniprogram.entity.web;
 import java.util.Collection;
 import java.util.Set;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -16,6 +17,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import lombok.Getter;
 import lombok.Setter;
 import wang.yongrui.learningjoy.wechat.miniprogram.entity.basic.WeChatUserBasic;
+import wang.yongrui.learningjoy.wechat.miniprogram.entity.persistence.WeChatUserEntity;
 import wang.yongrui.wechat.fundamental.entity.basic.UserBasic;
 
 /**
@@ -59,6 +61,23 @@ public class WeChatUser extends UserBasic implements UserDetails {
 	@Getter
 	@Setter
 	private Set<Notice> noticeSet;
+
+	/**
+	 * 
+	 */
+	public WeChatUser() {
+		super();
+	}
+
+	/**
+	 * @param userEntity
+	 */
+	public WeChatUser(WeChatUserEntity userEntity) {
+		super();
+		if (null != userEntity) {
+			BeanUtils.copyProperties(userEntity, this);
+		}
+	}
 
 	/*
 	 * (non-Javadoc)
