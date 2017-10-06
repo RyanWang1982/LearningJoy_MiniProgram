@@ -40,9 +40,18 @@ public class WeChatUserController {
 	 * @param weChatUnionId
 	 * @return
 	 */
-	@GetMapping("/{weChatUnionId}/basicInfo")
-	public ResponseEntity<WeChatUser> getUserBasicInfo(@PathVariable String weChatUnionId) {
+	@GetMapping("/basicInfo/byWeChat/{weChatUnionId}")
+	public ResponseEntity<WeChatUser> getUserBasicInfoByWeChat(@PathVariable String weChatUnionId) {
 		return new ResponseEntity<>(userService.retrieveBasicInfo(weChatUnionId), HttpStatus.OK);
+	}
+
+	/**
+	 * @param userId
+	 * @return
+	 */
+	@GetMapping("/basicInfo/byId/{userId}")
+	public ResponseEntity<WeChatUser> getUserBasicInfoById(@PathVariable Long userId) {
+		return new ResponseEntity<>(userService.retrieveBasicInfo(userId), HttpStatus.OK);
 	}
 
 }

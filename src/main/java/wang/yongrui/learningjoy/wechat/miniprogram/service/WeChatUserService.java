@@ -24,4 +24,10 @@ public interface WeChatUserService extends UserService {
 	 */
 	public WeChatUser retrieveBasicInfo(String weChatUnionId);
 
+	/**
+	 * @param userId
+	 * @return
+	 */
+	public WeChatUser retrieveBasicInfo(Long userId);
+
 }

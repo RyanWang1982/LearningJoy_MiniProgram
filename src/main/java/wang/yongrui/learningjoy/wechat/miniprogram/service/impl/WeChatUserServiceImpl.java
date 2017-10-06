@@ -73,4 +73,16 @@ public class WeChatUserServiceImpl implements WeChatUserService {
 		return new WeChatUser(userEntity);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * wang.yongrui.learningjoy.wechat.miniprogram.service.WeChatUserService#
+	 * retrieveBasicInfo(java.lang.Long)
+	 */
+	@Override
+	public WeChatUser retrieveBasicInfo(Long userId) {
+		return new WeChatUser(userRepository.findOne(userId));
+	}
+
 }

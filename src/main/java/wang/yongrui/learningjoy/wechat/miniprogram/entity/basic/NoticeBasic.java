@@ -9,6 +9,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import lombok.Getter;
 import lombok.Setter;
 import wang.yongrui.learningjoy.wechat.miniprogram.entity.enumeration.Priority;
@@ -31,6 +33,7 @@ public class NoticeBasic extends AuditingEntity {
 
 	private String description;
 
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm")
 	private Calendar deadline;
 
 	private Priority priority;

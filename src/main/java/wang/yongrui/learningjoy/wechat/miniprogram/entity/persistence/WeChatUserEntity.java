@@ -31,7 +31,7 @@ public class WeChatUserEntity extends UserEntity {
 	private WeChatUserBasic weChatInfo;
 
 	@OneToOne
-	private UserSettingEntity userSetting;
+	private UserSettingEntity userSettingEntity;
 
 	// Parent has children
 	@ManyToMany(cascade = CascadeType.MERGE)

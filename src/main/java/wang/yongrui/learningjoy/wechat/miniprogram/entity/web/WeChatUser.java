@@ -4,8 +4,10 @@
 package wang.yongrui.learningjoy.wechat.miniprogram.entity.web;
 
 import java.util.Collection;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,6 +19,8 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import lombok.Getter;
 import lombok.Setter;
 import wang.yongrui.learningjoy.wechat.miniprogram.entity.basic.WeChatUserBasic;
+import wang.yongrui.learningjoy.wechat.miniprogram.entity.persistence.CourseEntity;
+import wang.yongrui.learningjoy.wechat.miniprogram.entity.persistence.NoticeEntity;
 import wang.yongrui.learningjoy.wechat.miniprogram.entity.persistence.WeChatUserEntity;
 import wang.yongrui.wechat.fundamental.entity.basic.UserBasic;
 
@@ -76,6 +80,58 @@ public class WeChatUser extends UserBasic implements UserDetails {
 		super();
 		if (null != userEntity) {
 			BeanUtils.copyProperties(userEntity, this);
+			if (null != userEntity.getUserSettingEntity()) {
+				UserSetting userSetting = new UserSetting();
+				BeanUtils.copyProperties(userEntity.getUserSettingEntity(), userSetting);
+			}
+
+			if (CollectionUtils.isNotEmpty(userEntity.getChildEntitySet())) {
+				Set<WeChatUser> childSet = new LinkedHashSet<>();
+				for (WeChatUserEntity childEntity : userEntity.getChildEntitySet()) {
+					WeChatUser child = new WeChatUser();
+					BeanUtils.copyProperties(childEntity, child);
+					childSet.add(child);
+				}
+				setChildSet(childSet);
+			}
+			if (CollectionUtils.isNotEmpty(userEntity.getParentEntitySet())) {
+				Set<WeChatUser> parentSet = new LinkedHashSet<>();
+				for (WeChatUserEntity parentEntity : userEntity.getParentEntitySet()) {
+					WeChatUser parent = new WeChatUser();
+					BeanUtils.copyProperties(parentEntity, parent);
+					parentSet.add(parent);
+				}
+				setParentSet(parentSet);
+			}
+
+			if (CollectionUtils.isNotEmpty(userEntity.getTeacherCourseEntitySet())) {
+				Set<Course> teacherCourseSet = new LinkedHashSet<>();
+				for (CourseEntity teacherCourseEntity : userEntity.getTeacherCourseEntitySet()) {
+					Course teacherCourse = new Course();
+					BeanUtils.copyProperties(teacherCourseEntity, teacherCourse);
+					teacherCourseSet.add(teacherCourse);
+				}
+				setTeacherCourseSet(teacherCourseSet);
+			}
+			if (CollectionUtils.isNotEmpty(userEntity.getStudentCourseEntitySet())) {
+				Set<Course> studentCourseSet = new LinkedHashSet<>();
+				for (CourseEntity studentCourseEntity : userEntity.getStudentCourseEntitySet()) {
+					Course studentCourse = new Course();
+					BeanUtils.copyProperties(studentCourseEntity, studentCourse);
+					studentCourseSet.add(studentCourse);
+				}
+				setStudentCourseSet(studentCourseSet);
+			}
+
+			if (CollectionUtils.isNotEmpty(userEntity.getNoticeEntitySet())) {
+				Set<Notice> noticeSet = new LinkedHashSet<>();
+				for (NoticeEntity noticeEntity : userEntity.getNoticeEntitySet()) {
+					Notice notice = new Notice();
+					BeanUtils.copyProperties(noticeEntity, notice);
+					noticeSet.add(notice);
+				}
+				setNoticeSet(noticeSet);
+			}
 		}
 	}
 

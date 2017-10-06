@@ -6,6 +6,9 @@ package wang.yongrui.learningjoy.wechat.miniprogram.entity.web;
 import java.io.Serializable;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 import lombok.Getter;
 import lombok.Setter;
 import wang.yongrui.learningjoy.wechat.miniprogram.entity.basic.StudentPerformanceBasic;
@@ -14,6 +17,7 @@ import wang.yongrui.learningjoy.wechat.miniprogram.entity.basic.StudentPerforman
  * @author Wang Yongrui
  *
  */
+@JsonInclude(value = Include.NON_EMPTY)
 public class StudentPerformance extends StudentPerformanceBasic implements Serializable {
 
 	/**

@@ -3,6 +3,8 @@
  */
 package wang.yongrui.learningjoy.wechat.miniprogram.service;
 
+import java.util.Set;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -27,17 +29,47 @@ public interface CourseService {
 	public Course retrieveOne(Long courseId);
 
 	/**
-	 * @param weChatUnionId
+	 * @param teacherId
 	 * @param pageable
 	 * @return
 	 */
-	public Page<Course> retrieveByTeacher(String weChatUnionId, Pageable pageable);
+	public Page<Course> retrieveByTeacher(Long teacherId, Pageable pageable);
 
 	/**
-	 * @param weChatUnionId
+	 * @param studentId
 	 * @param pageable
 	 * @return
 	 */
-	public Page<Course> retrieveByStudent(String weChatUnionId, Pageable pageable);
+	public Page<Course> retrieveByStudent(Long studentId, Pageable pageable);
+
+	/**
+	 * @param course
+	 * @return
+	 */
+	public Course patchUpdate(Course course);
+
+	/**
+	 * @param course
+	 * @return
+	 */
+	public Course putUpdate(Course course);
+
+	/**
+	 * @param courseId
+	 * @return
+	 */
+	public Course close(Long courseId);
+
+	/**
+	 * @param teacherIdSet
+	 * @return
+	 */
+	public Course deleteRelationOfTeachers(Set<Long> teacherIdSet);
+
+	/**
+	 * @param studentIdSet
+	 * @return
+	 */
+	public Course deleteRelationOfStudents(Set<Long> studentIdSet);
 
 }
