@@ -3,11 +3,11 @@
  */
 package wang.yongrui.learningjoy.wechat.miniprogram.entity.web;
 
+import static wang.yongrui.learningjoy.wechat.miniprogram.util.EntityUtils.*;
+
 import java.io.Serializable;
-import java.util.LinkedHashSet;
 import java.util.Set;
 
-import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.BeanUtils;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -17,7 +17,6 @@ import lombok.Getter;
 import lombok.Setter;
 import wang.yongrui.learningjoy.wechat.miniprogram.entity.basic.CourseBasic;
 import wang.yongrui.learningjoy.wechat.miniprogram.entity.persistence.CourseEntity;
-import wang.yongrui.learningjoy.wechat.miniprogram.entity.persistence.WeChatUserEntity;
 
 /**
  * @author Wang Yongrui
@@ -57,15 +56,9 @@ public class Course extends CourseBasic implements Serializable {
 		super();
 		if (null != courseEntity) {
 			BeanUtils.copyProperties(courseEntity, this);
-			if (CollectionUtils.isNotEmpty(courseEntity.getTeacherEntitySet())) {
-				Set<WeChatUser> teacherSet = new LinkedHashSet<>();
-				for (WeChatUserEntity teacherEntity : courseEntity.getTeacherEntitySet()) {
-					WeChatUser teacher = new WeChatUser();
-					BeanUtils.copyProperties(teacherEntity, teacher);
-					teacherSet.add(teacher);
-				}
-				setTeacherSet(teacherSet);
-			}
+			setTeacherSet(getObjectSetFromEntitySet(courseEntity.getTeacherEntitySet(), WeChatUser.class));
+			setStudentSet(getObjectSetFromEntitySet(courseEntity.getStudentEntitySet(), WeChatUser.class));
+			setLessonSet(getObjectSetFromEntitySet(courseEntity.getLessonEntitySet(), Lesson.class));
 		}
 	}
 
