@@ -56,7 +56,7 @@ public class Homework extends HomeworkBasic implements Serializable {
 				WeChatUser student = new WeChatUser();
 				BeanUtils.copyProperties(homeworkEntity.getStudentEntity(), student);
 			}
-			setFileSet(getObjectSetFromEntitySet(homeworkEntity.getFileEntitySet(), File.class));
+			setFileSet(getTargetSetFromSourceSet(homeworkEntity.getFileEntitySet(), File.class));
 		}
 	}
 

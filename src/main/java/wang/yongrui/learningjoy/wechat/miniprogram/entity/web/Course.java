@@ -56,9 +56,9 @@ public class Course extends CourseBasic implements Serializable {
 		super();
 		if (null != courseEntity) {
 			BeanUtils.copyProperties(courseEntity, this);
-			setTeacherSet(getObjectSetFromEntitySet(courseEntity.getTeacherEntitySet(), WeChatUser.class));
-			setStudentSet(getObjectSetFromEntitySet(courseEntity.getStudentEntitySet(), WeChatUser.class));
-			setLessonSet(getObjectSetFromEntitySet(courseEntity.getLessonEntitySet(), Lesson.class));
+			setTeacherSet(getTargetSetFromSourceSet(courseEntity.getTeacherEntitySet(), WeChatUser.class));
+			setStudentSet(getTargetSetFromSourceSet(courseEntity.getStudentEntitySet(), WeChatUser.class));
+			setLessonSet(getTargetSetFromSourceSet(courseEntity.getLessonEntitySet(), Lesson.class));
 		}
 	}
 

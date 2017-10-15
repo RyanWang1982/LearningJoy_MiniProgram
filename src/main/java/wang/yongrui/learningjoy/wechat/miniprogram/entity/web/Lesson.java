@@ -53,8 +53,8 @@ public class Lesson extends LessonBasic implements Serializable {
 		if (null != lessonEntity) {
 			BeanUtils.copyProperties(lessonEntity, this);
 			setStudentPerformanceSet(
-					getObjectSetFromEntitySet(lessonEntity.getStudentPerformanceEntitySet(), StudentPerformance.class));
-			setHomeworkSet(getObjectSetFromEntitySet(lessonEntity.getHomeworkEntitySet(), Homework.class));
+					getTargetSetFromSourceSet(lessonEntity.getStudentPerformanceEntitySet(), StudentPerformance.class));
+			setHomeworkSet(getTargetSetFromSourceSet(lessonEntity.getHomeworkEntitySet(), Homework.class));
 		}
 	}
 

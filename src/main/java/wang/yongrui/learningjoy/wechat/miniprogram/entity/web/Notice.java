@@ -56,7 +56,7 @@ public class Notice extends NoticeBasic implements Serializable {
 				WeChatUser sender = new WeChatUser();
 				BeanUtils.copyProperties(noticeEntity.getSenderEntity(), sender);
 			}
-			setRecipientSet(getObjectSetFromEntitySet(noticeEntity.getRecipientEntitySet(), WeChatUser.class));
+			setRecipientSet(getTargetSetFromSourceSet(noticeEntity.getRecipientEntitySet(), WeChatUser.class));
 		}
 	}
 

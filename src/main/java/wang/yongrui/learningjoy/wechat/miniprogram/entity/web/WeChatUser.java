@@ -82,11 +82,11 @@ public class WeChatUser extends UserBasic implements UserDetails {
 				UserSetting userSetting = new UserSetting();
 				BeanUtils.copyProperties(userEntity.getUserSettingEntity(), userSetting);
 			}
-			setChildSet(getObjectSetFromEntitySet(userEntity.getChildEntitySet(), WeChatUser.class));
-			setParentSet(getObjectSetFromEntitySet(userEntity.getParentEntitySet(), WeChatUser.class));
-			setTeacherCourseSet(getObjectSetFromEntitySet(userEntity.getTeacherCourseEntitySet(), Course.class));
-			setStudentCourseSet(getObjectSetFromEntitySet(userEntity.getStudentCourseEntitySet(), Course.class));
-			setNoticeSet(getObjectSetFromEntitySet(userEntity.getNoticeEntitySet(), Notice.class));
+			setChildSet(getTargetSetFromSourceSet(userEntity.getChildEntitySet(), WeChatUser.class));
+			setParentSet(getTargetSetFromSourceSet(userEntity.getParentEntitySet(), WeChatUser.class));
+			setTeacherCourseSet(getTargetSetFromSourceSet(userEntity.getTeacherCourseEntitySet(), Course.class));
+			setStudentCourseSet(getTargetSetFromSourceSet(userEntity.getStudentCourseEntitySet(), Course.class));
+			setNoticeSet(getTargetSetFromSourceSet(userEntity.getNoticeEntitySet(), Notice.class));
 		}
 	}
 

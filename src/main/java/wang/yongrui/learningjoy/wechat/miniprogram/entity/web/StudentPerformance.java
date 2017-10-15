@@ -56,7 +56,7 @@ public class StudentPerformance extends StudentPerformanceBasic implements Seria
 				WeChatUser student = new WeChatUser();
 				BeanUtils.copyProperties(studentPerformanceEntity.getStudentEntity(), student);
 			}
-			setFileSet(getObjectSetFromEntitySet(studentPerformanceEntity.getFileEntitySet(), File.class));
+			setFileSet(getTargetSetFromSourceSet(studentPerformanceEntity.getFileEntitySet(), File.class));
 		}
 	}
 
