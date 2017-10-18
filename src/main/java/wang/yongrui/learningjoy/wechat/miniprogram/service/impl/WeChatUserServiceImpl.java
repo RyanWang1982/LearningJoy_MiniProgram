@@ -41,7 +41,7 @@ public class WeChatUserServiceImpl implements WeChatUserService {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see
 	 * wang.yongrui.learningjoy.wechat.miniprogram.service.WeChatUserService#
 	 * create(wang.yongrui.learningjoy.wechat.miniprogram.entity.web.WeChatUser)
@@ -57,13 +57,13 @@ public class WeChatUserServiceImpl implements WeChatUserService {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see
 	 * wang.yongrui.learningjoy.wechat.miniprogram.service.WeChatUserService#
-	 * retrieveBasicInfo(java.lang.String)
+	 * retrieveBasicInfoByWeChatUnionId(java.lang.String)
 	 */
 	@Override
-	public WeChatUser retrieveBasicInfo(String weChatUnionId) {
+	public WeChatUser retrieveBasicInfoByWeChatUnionId(String weChatUnionId) {
 		WeChatUserEntity userEntity = userRepository.findOne((root, criteriaQuery, criteriaBuilder) -> {
 			criteriaQuery.distinct(true);
 			return criteriaBuilder.equal(root.get(WeChatUserEntity_.weChatInfo).get(WeChatUserBasic_.unionId),
@@ -75,14 +75,68 @@ public class WeChatUserServiceImpl implements WeChatUserService {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see
 	 * wang.yongrui.learningjoy.wechat.miniprogram.service.WeChatUserService#
 	 * retrieveBasicInfo(java.lang.Long)
 	 */
 	@Override
-	public WeChatUser retrieveBasicInfo(Long userId) {
-		return new WeChatUser(userRepository.findOne(userId));
+	public WeChatUser retrieveBasicInfo(Long id) {
+		return new WeChatUser(userRepository.findOne(id));
+	}
+
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see
+	 * wang.yongrui.learningjoy.wechat.miniprogram.service.WeChatUserService#
+	 * retrieveWithSetting(java.lang.Long)
+	 */
+	@Override
+	public WeChatUser retrieveWithSetting(Long id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see
+	 * wang.yongrui.learningjoy.wechat.miniprogram.service.WeChatUserService#
+	 * retrieveWithChildren(java.lang.Long)
+	 */
+	@Override
+	public WeChatUser retrieveWithChildren(Long id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see
+	 * wang.yongrui.learningjoy.wechat.miniprogram.service.WeChatUserService#
+	 * patchUpdate(wang.yongrui.learningjoy.wechat.miniprogram.entity.web.
+	 * WeChatUser)
+	 */
+	@Override
+	public WeChatUser patchUpdate(WeChatUser user) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see
+	 * wang.yongrui.learningjoy.wechat.miniprogram.service.WeChatUserService#
+	 * putUpdate(wang.yongrui.learningjoy.wechat.miniprogram.entity.web.
+	 * WeChatUser)
+	 */
+	@Override
+	public WeChatUser putUpdate(WeChatUser user) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

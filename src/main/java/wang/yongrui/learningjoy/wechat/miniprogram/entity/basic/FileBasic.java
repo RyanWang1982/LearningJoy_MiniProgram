@@ -3,12 +3,16 @@
  */
 package wang.yongrui.learningjoy.wechat.miniprogram.entity.basic;
 
+import javax.persistence.Column;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
 import lombok.Getter;
 import lombok.Setter;
+import wang.yongrui.learningjoy.wechat.miniprogram.entity.enumeration.FileType;
 import wang.yongrui.wechat.fundamental.entity.fundamental.AuditingEntity;
 
 /**
@@ -24,10 +28,14 @@ public class FileBasic extends AuditingEntity {
 	@GeneratedValue
 	private Long id;
 
-	private String fileName;
+	@Column(nullable = false)
+	private String name;
 
-	private String fileSuffix;
+	@Column(nullable = false)
+	@Enumerated(value = EnumType.STRING)
+	private FileType type;
 
-	private String fileUrl;
+	@Column(nullable = false)
+	private String url;
 
 }

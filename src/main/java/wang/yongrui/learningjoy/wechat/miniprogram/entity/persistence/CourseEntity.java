@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -37,9 +38,7 @@ public class CourseEntity extends CourseBasic {
 	private Set<WeChatUserEntity> studentEntitySet;
 
 	// Course has lessons
-	@ManyToMany(cascade = CascadeType.MERGE)
-	@JoinTable(name = "COURSE_LESSON", joinColumns = { @JoinColumn(name = "course_id") }, inverseJoinColumns = {
-			@JoinColumn(name = "lesson_id") })
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "courseEntity")
 	private Set<LessonEntity> lessonEntitySet;
 
 }

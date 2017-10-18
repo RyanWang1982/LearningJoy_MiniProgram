@@ -3,6 +3,7 @@
  */
 package wang.yongrui.learningjoy.wechat.miniprogram.entity.basic;
 
+import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
@@ -24,10 +25,13 @@ public class UserSettingBasic extends AuditingEntity {
 	@GeneratedValue
 	private Long id;
 
+	@Column(nullable = false)
 	private boolean teacherFunctionEnabled;
 
+	@Column(nullable = false)
 	private boolean parentFunctionEnabled;
 
+	@Column(nullable = false)
 	private boolean studentFunctionEnabled;
 
 	private String courseReminderRule;

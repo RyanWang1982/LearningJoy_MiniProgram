@@ -5,6 +5,9 @@ package wang.yongrui.learningjoy.wechat.miniprogram.entity.basic;
 
 import java.util.Calendar;
 
+import javax.persistence.Column;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
@@ -29,13 +32,17 @@ public class NoticeBasic extends AuditingEntity {
 	@GeneratedValue
 	private Long id;
 
+	@Column(nullable = false)
 	private String subject;
 
 	private String description;
 
+	@Column(nullable = false)
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm")
 	private Calendar deadline;
 
+	@Column(nullable = false)
+	@Enumerated(value = EnumType.STRING)
 	private Priority priority;
 
 }

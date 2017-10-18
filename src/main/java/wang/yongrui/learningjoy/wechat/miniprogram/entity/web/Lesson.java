@@ -32,6 +32,14 @@ public class Lesson extends LessonBasic implements Serializable {
 
 	@Getter
 	@Setter
+	private Course course;
+
+	@Getter
+	@Setter
+	private WeChatUser teacher;
+
+	@Getter
+	@Setter
 	private Set<StudentPerformance> studentPerformanceSet;
 
 	@Getter
@@ -39,7 +47,7 @@ public class Lesson extends LessonBasic implements Serializable {
 	private Set<Homework> homeworkSet;
 
 	/**
-	 * 
+	 *
 	 */
 	public Lesson() {
 		super();

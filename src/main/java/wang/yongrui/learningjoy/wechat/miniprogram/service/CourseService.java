@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package wang.yongrui.learningjoy.wechat.miniprogram.service;
 
@@ -9,6 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import wang.yongrui.learningjoy.wechat.miniprogram.entity.web.Course;
+import wang.yongrui.learningjoy.wechat.miniprogram.entity.web.criteria.CourseCriteria;
 
 /**
  * @author Wang Yongrui
@@ -23,24 +24,29 @@ public interface CourseService {
 	public Course create(Course course);
 
 	/**
-	 * @param courseId
+	 * @param id
 	 * @return
 	 */
-	public Course retrieveOne(Long courseId);
+	public Course retrieve(Long id);
 
 	/**
-	 * @param teacherId
+	 * @param id
+	 * @return
+	 */
+	public Course retrieveWithTeachers(Long id);
+
+	/**
+	 * @param id
+	 * @return
+	 */
+	public Course retrieveWithStudents(Long id);
+
+	/**
+	 * @param courseCriteria
 	 * @param pageable
 	 * @return
 	 */
-	public Page<Course> retrieveByTeacher(Long teacherId, Pageable pageable);
-
-	/**
-	 * @param studentId
-	 * @param pageable
-	 * @return
-	 */
-	public Page<Course> retrieveByStudent(Long studentId, Pageable pageable);
+	public Page<Course> retrievePagination(CourseCriteria courseCriteria, Pageable pageable);
 
 	/**
 	 * @param course
@@ -55,21 +61,15 @@ public interface CourseService {
 	public Course putUpdate(Course course);
 
 	/**
-	 * @param courseId
-	 * @return
-	 */
-	public Course close(Long courseId);
-
-	/**
 	 * @param teacherIdSet
 	 * @return
 	 */
-	public Course deleteRelationOfTeachers(Set<Long> teacherIdSet);
+	public Course deleteRelationWithTeachers(Set<Long> teacherIdSet);
 
 	/**
 	 * @param studentIdSet
 	 * @return
 	 */
-	public Course deleteRelationOfStudents(Set<Long> studentIdSet);
+	public Course deleteRelationWithStudents(Set<Long> studentIdSet);
 
 }

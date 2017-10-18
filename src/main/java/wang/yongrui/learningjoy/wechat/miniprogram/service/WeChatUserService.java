@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package wang.yongrui.learningjoy.wechat.miniprogram.service;
 
@@ -22,12 +22,36 @@ public interface WeChatUserService extends UserService {
 	 * @param weChatUnionId
 	 * @return
 	 */
-	public WeChatUser retrieveBasicInfo(String weChatUnionId);
+	public WeChatUser retrieveBasicInfoByWeChatUnionId(String weChatUnionId);
 
 	/**
-	 * @param userId
+	 * @param id
 	 * @return
 	 */
-	public WeChatUser retrieveBasicInfo(Long userId);
+	public WeChatUser retrieveBasicInfo(Long id);
+
+	/**
+	 * @param id
+	 * @return
+	 */
+	public WeChatUser retrieveWithSetting(Long id);
+
+	/**
+	 * @param id
+	 * @return
+	 */
+	public WeChatUser retrieveWithChildren(Long id);
+
+	/**
+	 * @param user
+	 * @return
+	 */
+	public WeChatUser patchUpdate(WeChatUser user);
+
+	/**
+	 * @param user
+	 * @return
+	 */
+	public WeChatUser putUpdate(WeChatUser user);
 
 }

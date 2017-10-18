@@ -3,6 +3,9 @@
  */
 package wang.yongrui.learningjoy.wechat.miniprogram.entity.basic;
 
+import javax.persistence.Column;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
@@ -25,8 +28,11 @@ public class StudentPerformanceBasic extends AuditingEntity {
 	@GeneratedValue
 	private Long id;
 
+	@Column(nullable = false)
+	@Enumerated(value = EnumType.STRING)
 	private ScoreType scoreType;
 
+	@Column(nullable = false)
 	private Integer score;
 
 	private String good;

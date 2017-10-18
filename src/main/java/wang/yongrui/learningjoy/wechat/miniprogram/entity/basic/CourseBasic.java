@@ -5,6 +5,9 @@ package wang.yongrui.learningjoy.wechat.miniprogram.entity.basic;
 
 import java.util.Calendar;
 
+import javax.persistence.Column;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
@@ -29,12 +32,14 @@ public class CourseBasic extends AuditingEntity {
 	@GeneratedValue
 	private Long id;
 
+	@Column(nullable = false)
 	private String name;
 
 	private String description;
 
 	private String grade;
 
+	@Column(nullable = false)
 	private String address;
 
 	@JsonFormat(pattern = "yyyy-MM-dd")
@@ -43,14 +48,16 @@ public class CourseBasic extends AuditingEntity {
 	@JsonFormat(pattern = "yyyy-MM-dd")
 	private Calendar endDate;
 
-	private String time;
+	private String startTime; // HH:mm
+
+	private Integer duration;
 
 	private String recurringRule;// Using the way as @Scheduled
 
 	private Integer recurringTimes;
 
-	private Integer duration;
-
+	@Column(nullable = false)
+	@Enumerated(value = EnumType.STRING)
 	private CourseStatus status;
 
 }

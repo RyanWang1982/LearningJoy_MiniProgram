@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import wang.yongrui.learningjoy.wechat.miniprogram.entity.web.Course;
+import wang.yongrui.learningjoy.wechat.miniprogram.entity.web.criteria.CourseCriteria;
 import wang.yongrui.learningjoy.wechat.miniprogram.service.CourseService;
 
 /**
@@ -44,32 +45,41 @@ public class CourseController {
 	}
 
 	/**
-	 * @param courseId
+	 * @param id
 	 * @return
 	 */
-	@GetMapping("/{courseId}")
-	public ResponseEntity<Course> getCourse(@PathVariable Long courseId) {
-		return new ResponseEntity<>(courseService.retrieveOne(courseId), HttpStatus.OK);
+	@GetMapping("/{id}")
+	public ResponseEntity<Course> retrieve(@PathVariable Long id) {
+		return new ResponseEntity<>(courseService.retrieve(id), HttpStatus.OK);
 	}
 
 	/**
-	 * @param teacherId
-	 * @param pageable
+	 * @param id
 	 * @return
 	 */
-	@GetMapping("/byTeacher/{teacherId}")
-	public ResponseEntity<Page<Course>> getCoursePageByTeacher(@PathVariable Long teacherId, Pageable pageable) {
-		return new ResponseEntity<>(courseService.retrieveByTeacher(teacherId, pageable), HttpStatus.OK);
+	@GetMapping("/{id}/withTeachers")
+	public ResponseEntity<Course> retrieveWithTeachers(@PathVariable Long id) {
+		return new ResponseEntity<>(courseService.retrieveWithTeachers(id), HttpStatus.OK);
 	}
 
 	/**
-	 * @param studentId
+	 * @param id
+	 * @return
+	 */
+	@GetMapping("/{id}/withStudents")
+	public ResponseEntity<Course> retrieveWithStudents(@PathVariable Long id) {
+		return new ResponseEntity<>(courseService.retrieveWithStudents(id), HttpStatus.OK);
+	}
+
+	/**
+	 * @param courseCriteria
 	 * @param pageable
 	 * @return
 	 */
-	@GetMapping("/byStudent/{studentId}")
-	public ResponseEntity<Page<Course>> getCoursePageByStudent(@PathVariable Long studentId, Pageable pageable) {
-		return new ResponseEntity<>(courseService.retrieveByStudent(studentId, pageable), HttpStatus.OK);
+	@PostMapping("/pagination")
+	public ResponseEntity<Page<Course>> retrievePagination(@RequestBody CourseCriteria courseCriteria,
+			Pageable pageable) {
+		return new ResponseEntity<>(courseService.retrievePagination(courseCriteria, pageable), HttpStatus.OK);
 	}
 
 	/**
@@ -91,30 +101,21 @@ public class CourseController {
 	}
 
 	/**
-	 * @param courseId
-	 * @return
-	 */
-	@DeleteMapping("/{courseId}")
-	public ResponseEntity<Course> closeCourse(@PathVariable Long courseId) {
-		return new ResponseEntity<>(courseService.close(courseId), HttpStatus.OK);
-	}
-
-	/**
 	 * @param teacherIdSet
 	 * @return
 	 */
-	@DeleteMapping("/relationOfTeachers")
-	public ResponseEntity<Course> deleteRelationOfTeachers(@RequestBody Set<Long> teacherIdSet) {
-		return new ResponseEntity<>(courseService.deleteRelationOfTeachers(teacherIdSet), HttpStatus.OK);
+	@DeleteMapping("/relationWithTeachers")
+	public ResponseEntity<Course> deleteRelationWithTeachers(@RequestBody Set<Long> teacherIdSet) {
+		return new ResponseEntity<>(courseService.deleteRelationWithTeachers(teacherIdSet), HttpStatus.OK);
 	}
 
 	/**
 	 * @param studentIdSet
 	 * @return
 	 */
-	@DeleteMapping("/relationOfStudents")
-	public ResponseEntity<Course> deleteRelationOfStudents(@RequestBody Set<Long> studentIdSet) {
-		return new ResponseEntity<>(courseService.deleteRelationOfStudents(studentIdSet), HttpStatus.OK);
+	@DeleteMapping("/relationWithStudents")
+	public ResponseEntity<Course> deleteRelationWithStudents(@RequestBody Set<Long> studentIdSet) {
+		return new ResponseEntity<>(courseService.deleteRelationWithStudents(studentIdSet), HttpStatus.OK);
 	}
 
 }
