@@ -3,6 +3,11 @@
  */
 package wang.yongrui.learningjoy.wechat.miniprogram.service.impl;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.metamodel.Attribute;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -94,8 +99,10 @@ public class WeChatUserServiceImpl implements WeChatUserService {
 	 */
 	@Override
 	public WeChatUser retrieveWithSetting(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+		WeChatUserEntity userEntity = userRepository.findOne(id);
+		Set<Attribute<?, ?>> includAttributeSet = new HashSet<>();
+		includAttributeSet.add(WeChatUserEntity_.userSettingEntity);
+		return new WeChatUser(userEntity, includAttributeSet);
 	}
 
 	/*
@@ -107,8 +114,10 @@ public class WeChatUserServiceImpl implements WeChatUserService {
 	 */
 	@Override
 	public WeChatUser retrieveWithChildren(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+		WeChatUserEntity userEntity = userRepository.findOne(id);
+		Set<Attribute<?, ?>> includAttributeSet = new HashSet<>();
+		includAttributeSet.add(WeChatUserEntity_.childEntitySet);
+		return new WeChatUser(userEntity, includAttributeSet);
 	}
 
 	/*
