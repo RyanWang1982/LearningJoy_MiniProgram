@@ -86,31 +86,31 @@ public class WeChatUser extends UserBasic implements UserDetails {
 
 	/**
 	 * @param userEntity
-	 * @param includAttributeSet
+	 * @param includedAttributeSet
 	 */
-	public WeChatUser(WeChatUserEntity userEntity, Set<Attribute<?, ?>> includAttributeSet) {
+	public WeChatUser(WeChatUserEntity userEntity, Set<Attribute<?, ?>> includedAttributeSet) {
 		super();
 		if (null != userEntity) {
 			BeanUtils.copyProperties(userEntity, this);
-			if (includAttributeSet.contains(WeChatUserEntity_.userSettingEntity)
+			if (includedAttributeSet.contains(WeChatUserEntity_.userSettingEntity)
 					&& null != userEntity.getUserSettingEntity()) {
 				UserSetting userSetting = new UserSetting();
 				BeanUtils.copyProperties(userEntity.getUserSettingEntity(), userSetting);
 				setUserSetting(userSetting);
 			}
-			if (includAttributeSet.contains(WeChatUserEntity_.childEntitySet)) {
+			if (includedAttributeSet.contains(WeChatUserEntity_.childEntitySet)) {
 				setChildSet(getTargetSetFromSourceSet(userEntity.getChildEntitySet(), WeChatUser.class));
 			}
-			if (includAttributeSet.contains(WeChatUserEntity_.parentEntitySet)) {
+			if (includedAttributeSet.contains(WeChatUserEntity_.parentEntitySet)) {
 				setParentSet(getTargetSetFromSourceSet(userEntity.getParentEntitySet(), WeChatUser.class));
 			}
-			if (includAttributeSet.contains(WeChatUserEntity_.teacherCourseEntitySet)) {
+			if (includedAttributeSet.contains(WeChatUserEntity_.teacherCourseEntitySet)) {
 				setTeacherCourseSet(getTargetSetFromSourceSet(userEntity.getTeacherCourseEntitySet(), Course.class));
 			}
-			if (includAttributeSet.contains(WeChatUserEntity_.studentCourseEntitySet)) {
+			if (includedAttributeSet.contains(WeChatUserEntity_.studentCourseEntitySet)) {
 				setStudentCourseSet(getTargetSetFromSourceSet(userEntity.getStudentCourseEntitySet(), Course.class));
 			}
-			if (includAttributeSet.contains(WeChatUserEntity_.noticeEntitySet)) {
+			if (includedAttributeSet.contains(WeChatUserEntity_.noticeEntitySet)) {
 				setNoticeSet(getTargetSetFromSourceSet(userEntity.getNoticeEntitySet(), Notice.class));
 			}
 		}
