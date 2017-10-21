@@ -3,6 +3,8 @@ spring:
   datasource:
     driverClassName: com.mysql.jdbc.Driver
     url: jdbc:mysql://localhost:3306/learningjoy?createDatabaseIfNotExist=true
+    # driverClassName: net.sf.log4jdbc.DriverSpy
+    # url: jdbc:log4jdbc:mysql://localhost:3306/wechat?createDatabaseIfNotExist=true
     username: sa
     password: Welcome1
   jpa:

@@ -49,11 +49,11 @@ public class WeChatUser extends UserBasic implements UserDetails {
 
 	@Getter
 	@Setter
-	private Set<WeChatUser> childSet;
+	private Set<UserChild> childSet;
 
 	@Getter
 	@Setter
-	private Set<WeChatUser> parentSet;
+	private Set<UserParent> parentSet;
 
 	@Getter
 	@Setter
@@ -99,10 +99,10 @@ public class WeChatUser extends UserBasic implements UserDetails {
 				setUserSetting(userSetting);
 			}
 			if (includedAttributeSet.contains(WeChatUserEntity_.childEntitySet)) {
-				setChildSet(getTargetSetFromSourceSet(userEntity.getChildEntitySet(), WeChatUser.class));
+				setChildSet(getTargetSetFromSourceSet(userEntity.getChildEntitySet(), UserChild.class));
 			}
 			if (includedAttributeSet.contains(WeChatUserEntity_.parentEntitySet)) {
-				setParentSet(getTargetSetFromSourceSet(userEntity.getParentEntitySet(), WeChatUser.class));
+				setParentSet(getTargetSetFromSourceSet(userEntity.getParentEntitySet(), UserParent.class));
 			}
 			if (includedAttributeSet.contains(WeChatUserEntity_.teacherCourseEntitySet)) {
 				setTeacherCourseSet(getTargetSetFromSourceSet(userEntity.getTeacherCourseEntitySet(), Course.class));

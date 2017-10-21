@@ -11,6 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import lombok.Getter;
@@ -35,16 +36,12 @@ public class WeChatUserEntity extends UserEntity {
 	private UserSettingEntity userSettingEntity;
 
 	// Parent has children
-	@ManyToMany(cascade = CascadeType.MERGE)
-	@JoinTable(name = "USER_CHILD", joinColumns = { @JoinColumn(name = "user_id") }, inverseJoinColumns = {
-			@JoinColumn(name = "child_id") })
-	private Set<WeChatUserEntity> childEntitySet;
+	@OneToMany(mappedBy = "user", cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+	private Set<UserChildEntity> childEntitySet;
 
 	// Child has parents
-	@ManyToMany(cascade = CascadeType.MERGE)
-	@JoinTable(name = "USER_PARENT", joinColumns = { @JoinColumn(name = "user_id") }, inverseJoinColumns = {
-			@JoinColumn(name = "parent_id") })
-	private Set<WeChatUserEntity> parentEntitySet;
+	@OneToMany(mappedBy = "user", cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+	private Set<UserParentEntity> parentEntitySet;
 
 	// Teacher owns courses
 	@ManyToMany(cascade = CascadeType.MERGE)
