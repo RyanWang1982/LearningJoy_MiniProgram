@@ -26,13 +26,13 @@ public class UserSettingBasic extends AuditingEntity {
 	private Long id;
 
 	@Column(nullable = false)
-	private boolean teacherFunctionEnabled;
+	private Boolean teacherFunctionEnabled;
 
 	@Column(nullable = false)
-	private boolean parentFunctionEnabled;
+	private Boolean parentFunctionEnabled;
 
 	@Column(nullable = false)
-	private boolean studentFunctionEnabled;
+	private Boolean studentFunctionEnabled;
 
 	private String courseReminderRule;
 

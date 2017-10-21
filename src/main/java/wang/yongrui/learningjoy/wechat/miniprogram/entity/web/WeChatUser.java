@@ -3,6 +3,7 @@
  */
 package wang.yongrui.learningjoy.wechat.miniprogram.entity.web;
 
+import static org.springframework.beans.BeanUtils.*;
 import static wang.yongrui.learningjoy.wechat.miniprogram.util.EntityUtils.*;
 
 import java.util.Collection;
@@ -10,7 +11,6 @@ import java.util.Set;
 
 import javax.persistence.metamodel.Attribute;
 
-import org.springframework.beans.BeanUtils;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -21,6 +21,8 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import lombok.Getter;
 import lombok.Setter;
 import wang.yongrui.learningjoy.wechat.miniprogram.entity.basic.WeChatUserBasic;
+import wang.yongrui.learningjoy.wechat.miniprogram.entity.persistence.UserChildEntity;
+import wang.yongrui.learningjoy.wechat.miniprogram.entity.persistence.UserParentEntity;
 import wang.yongrui.learningjoy.wechat.miniprogram.entity.persistence.WeChatUserEntity;
 import wang.yongrui.learningjoy.wechat.miniprogram.entity.persistence.WeChatUserEntity_;
 import wang.yongrui.wechat.fundamental.entity.basic.UserBasic;
@@ -80,7 +82,7 @@ public class WeChatUser extends UserBasic implements UserDetails {
 	public WeChatUser(WeChatUserEntity userEntity) {
 		super();
 		if (null != userEntity) {
-			BeanUtils.copyProperties(userEntity, this);
+			copyProperties(userEntity, this);
 		}
 	}
 
@@ -91,18 +93,20 @@ public class WeChatUser extends UserBasic implements UserDetails {
 	public WeChatUser(WeChatUserEntity userEntity, Set<Attribute<?, ?>> includedAttributeSet) {
 		super();
 		if (null != userEntity) {
-			BeanUtils.copyProperties(userEntity, this);
+			copyProperties(userEntity, this);
 			if (includedAttributeSet.contains(WeChatUserEntity_.userSettingEntity)
 					&& null != userEntity.getUserSettingEntity()) {
 				UserSetting userSetting = new UserSetting();
-				BeanUtils.copyProperties(userEntity.getUserSettingEntity(), userSetting);
+				copyProperties(userEntity.getUserSettingEntity(), userSetting);
 				setUserSetting(userSetting);
 			}
 			if (includedAttributeSet.contains(WeChatUserEntity_.childEntitySet)) {
-				setChildSet(getTargetSetFromSourceSet(userEntity.getChildEntitySet(), UserChild.class));
+				setChildSet(getObjectSetFromEntitySetWithHeritage(userEntity.getChildEntitySet(), UserChildEntity.class,
+						UserChild.class));
 			}
 			if (includedAttributeSet.contains(WeChatUserEntity_.parentEntitySet)) {
-				setParentSet(getTargetSetFromSourceSet(userEntity.getParentEntitySet(), UserParent.class));
+				setParentSet(getObjectSetFromEntitySetWithHeritage(userEntity.getParentEntitySet(),
+						UserParentEntity.class, UserParent.class));
 			}
 			if (includedAttributeSet.contains(WeChatUserEntity_.teacherCourseEntitySet)) {
 				setTeacherCourseSet(getTargetSetFromSourceSet(userEntity.getTeacherCourseEntitySet(), Course.class));

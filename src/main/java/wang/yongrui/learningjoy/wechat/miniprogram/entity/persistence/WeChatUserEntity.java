@@ -31,7 +31,7 @@ public class WeChatUserEntity extends UserEntity {
 
 	private WeChatUserBasic weChatInfo;
 
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "user_setting_id")
 	private UserSettingEntity userSettingEntity;
 

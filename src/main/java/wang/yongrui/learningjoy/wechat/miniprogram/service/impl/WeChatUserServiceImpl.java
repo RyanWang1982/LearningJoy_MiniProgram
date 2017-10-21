@@ -3,13 +3,15 @@
  */
 package wang.yongrui.learningjoy.wechat.miniprogram.service.impl;
 
+import static org.springframework.beans.BeanUtils.*;
+import static wang.yongrui.learningjoy.wechat.miniprogram.util.PatchBeanUtils.*;
+
 import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.metamodel.Attribute;
 
 import org.apache.commons.collections4.CollectionUtils;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -19,6 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 import wang.yongrui.learningjoy.wechat.miniprogram.entity.basic.WeChatUserBasic_;
 import wang.yongrui.learningjoy.wechat.miniprogram.entity.persistence.UserChildEntity;
 import wang.yongrui.learningjoy.wechat.miniprogram.entity.persistence.UserParentEntity;
+import wang.yongrui.learningjoy.wechat.miniprogram.entity.persistence.UserSettingEntity;
 import wang.yongrui.learningjoy.wechat.miniprogram.entity.persistence.WeChatUserEntity;
 import wang.yongrui.learningjoy.wechat.miniprogram.entity.persistence.WeChatUserEntity_;
 import wang.yongrui.learningjoy.wechat.miniprogram.entity.web.UserParent;
@@ -58,7 +61,12 @@ public class WeChatUserServiceImpl implements WeChatUserService {
 	@Override
 	public WeChatUser create(WeChatUser user) {
 		WeChatUserEntity userEntity = new WeChatUserEntity();
-		BeanUtils.copyProperties(user, userEntity);
+		copyProperties(user, userEntity);
+		if (null != user.getUserSetting()) {
+			UserSettingEntity userSettingEntity = new UserSettingEntity();
+			copyProperties(user.getUserSetting(), userSettingEntity);
+			userEntity.setUserSettingEntity(userSettingEntity);
+		}
 
 		if (CollectionUtils.isNotEmpty(user.getParentSet())) {
 			Set<UserParentEntity> userParentEntitySet = new HashSet<>();
@@ -89,6 +97,7 @@ public class WeChatUserServiceImpl implements WeChatUserService {
 
 		userEntity = userRepository.saveAndFlush(userEntity);
 		Set<Attribute<?, ?>> includedAttributeSet = new HashSet<>();
+		includedAttributeSet.add(WeChatUserEntity_.userSettingEntity);
 		includedAttributeSet.add(WeChatUserEntity_.childEntitySet);
 		includedAttributeSet.add(WeChatUserEntity_.parentEntitySet);
 
@@ -165,8 +174,16 @@ public class WeChatUserServiceImpl implements WeChatUserService {
 	 */
 	@Override
 	public WeChatUser patchUpdate(WeChatUser user) {
-		// TODO Auto-generated method stub
-		return null;
+		WeChatUserEntity userEntity = userRepository.findOne(user.getId());
+		updateProperties(user, userEntity, false);
+		if (null == userEntity.getUserSettingEntity()) {
+			userEntity.setUserSettingEntity(new UserSettingEntity());
+		}
+		updateProperties(user.getUserSetting(), userEntity.getUserSettingEntity(), false);
+		userEntity = userRepository.saveAndFlush(userEntity);
+		Set<Attribute<?, ?>> includedAttributeSet = new HashSet<>();
+		includedAttributeSet.add(WeChatUserEntity_.userSettingEntity);
+		return new WeChatUser(userEntity, includedAttributeSet);
 	}
 
 	/*
@@ -179,8 +196,16 @@ public class WeChatUserServiceImpl implements WeChatUserService {
 	 */
 	@Override
 	public WeChatUser putUpdate(WeChatUser user) {
-		// TODO Auto-generated method stub
-		return null;
+		WeChatUserEntity userEntity = userRepository.findOne(user.getId());
+		updateProperties(user, userEntity, true);
+		if (null == userEntity.getUserSettingEntity()) {
+			userEntity.setUserSettingEntity(new UserSettingEntity());
+		}
+		updateProperties(user.getUserSetting(), userEntity.getUserSettingEntity(), true);
+		userEntity = userRepository.saveAndFlush(userEntity);
+		Set<Attribute<?, ?>> includedAttributeSet = new HashSet<>();
+		includedAttributeSet.add(WeChatUserEntity_.userSettingEntity);
+		return new WeChatUser(userEntity, includedAttributeSet);
 	}
 
 }
