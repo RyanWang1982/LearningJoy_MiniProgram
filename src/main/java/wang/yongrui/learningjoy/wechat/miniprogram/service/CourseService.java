@@ -61,15 +61,17 @@ public interface CourseService {
 	public Course putUpdate(Course course);
 
 	/**
+	 * @param id
 	 * @param teacherIdSet
 	 * @return
 	 */
-	public Course deleteRelationWithTeachers(Set<Long> teacherIdSet);
+	public Course deleteRelationWithTeachers(Long id, Set<Long> teacherIdSet);
 
 	/**
+	 * @param id
 	 * @param studentIdSet
 	 * @return
 	 */
-	public Course deleteRelationWithStudents(Set<Long> studentIdSet);
+	public Course deleteRelationWithStudents(Long id, Set<Long> studentIdSet);
 
 }

@@ -101,21 +101,25 @@ public class CourseController {
 	}
 
 	/**
+	 * @param id
 	 * @param teacherIdSet
 	 * @return
 	 */
-	@DeleteMapping("/relationWithTeachers")
-	public ResponseEntity<Course> deleteRelationWithTeachers(@RequestBody Set<Long> teacherIdSet) {
-		return new ResponseEntity<>(courseService.deleteRelationWithTeachers(teacherIdSet), HttpStatus.OK);
+	@DeleteMapping("/{id}/relationWithTeachers")
+	public ResponseEntity<Course> deleteRelationWithTeachers(@PathVariable Long id,
+			@RequestBody Set<Long> teacherIdSet) {
+		return new ResponseEntity<>(courseService.deleteRelationWithTeachers(id, teacherIdSet), HttpStatus.OK);
 	}
 
 	/**
+	 * @param id
 	 * @param studentIdSet
 	 * @return
 	 */
-	@DeleteMapping("/relationWithStudents")
-	public ResponseEntity<Course> deleteRelationWithStudents(@RequestBody Set<Long> studentIdSet) {
-		return new ResponseEntity<>(courseService.deleteRelationWithStudents(studentIdSet), HttpStatus.OK);
+	@DeleteMapping("/{id}/relationWithStudents")
+	public ResponseEntity<Course> deleteRelationWithStudents(@PathVariable Long id,
+			@RequestBody Set<Long> studentIdSet) {
+		return new ResponseEntity<>(courseService.deleteRelationWithStudents(id, studentIdSet), HttpStatus.OK);
 	}
 
 }

@@ -25,7 +25,7 @@ import wang.yongrui.learningjoy.wechat.miniprogram.entity.basic.CourseBasic;
 @Setter
 public class CourseEntity extends CourseBasic {
 
-	// Course is owned by teachers
+	// Course is taught by teachers
 	@ManyToMany
 	@JoinTable(name = "TEACHER_COURSE", joinColumns = { @JoinColumn(name = "course_id") }, inverseJoinColumns = {
 			@JoinColumn(name = "teacher_id") })
