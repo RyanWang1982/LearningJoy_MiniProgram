@@ -6,14 +6,20 @@ package wang.yongrui.learningjoy.wechat.miniprogram.service.impl;
 import static org.springframework.beans.BeanUtils.*;
 import static wang.yongrui.learningjoy.wechat.miniprogram.util.PatchBeanUtils.*;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
+import javax.persistence.EntityManager;
 import javax.persistence.criteria.JoinType;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.SetJoin;
 import javax.persistence.metamodel.Attribute;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,6 +27,7 @@ import org.springframework.transaction.annotation.Transactional;
 import wang.yongrui.learningjoy.wechat.miniprogram.entity.persistence.CourseEntity;
 import wang.yongrui.learningjoy.wechat.miniprogram.entity.persistence.CourseEntity_;
 import wang.yongrui.learningjoy.wechat.miniprogram.entity.persistence.WeChatUserEntity;
+import wang.yongrui.learningjoy.wechat.miniprogram.entity.persistence.WeChatUserEntity_;
 import wang.yongrui.learningjoy.wechat.miniprogram.entity.web.Course;
 import wang.yongrui.learningjoy.wechat.miniprogram.entity.web.WeChatUser;
 import wang.yongrui.learningjoy.wechat.miniprogram.entity.web.criteria.CourseCriteria;
@@ -35,6 +42,9 @@ import wang.yongrui.learningjoy.wechat.miniprogram.service.CourseService;
 @Service
 @Transactional
 public class CourseServieImpl implements CourseService {
+
+	@Autowired
+	private EntityManager entityManager;
 
 	@Autowired
 	private WeChatUserRepository userRepository;
@@ -60,13 +70,12 @@ public class CourseServieImpl implements CourseService {
 		}
 		Set<WeChatUserEntity> teacherEntitySet = new HashSet<>();
 		teacherEntitySet.addAll(userRepository.findAll(ids));
-
 		courseEntity.setTeacherEntitySet(teacherEntitySet);
-		courseEntity = courseRepository.saveAndFlush(courseEntity);
 
-		Set<Attribute<?, ?>> includedAttributeSet = new HashSet<>();
-		includedAttributeSet.add(CourseEntity_.teacherEntitySet);
-		return new Course(courseEntity);
+		courseEntity = courseRepository.saveAndFlush(courseEntity);
+		entityManager.refresh(courseEntity);
+
+		return retrieve(courseEntity.getId());
 	}
 
 	/*
@@ -127,8 +136,37 @@ public class CourseServieImpl implements CourseService {
 	 */
 	@Override
 	public Page<Course> retrievePagination(CourseCriteria courseCriteria, Pageable pageable) {
-		// TODO Auto-generated method stub
-		return null;
+		Page<CourseEntity> courseEntityPage = courseRepository.findAll((root, criteriaQuery, criteriaBuilder) -> {
+			criteriaQuery.distinct(true);
+			SetJoin<CourseEntity, WeChatUserEntity> teacherJoin = root.join(CourseEntity_.teacherEntitySet);
+			SetJoin<CourseEntity, WeChatUserEntity> studentJoin = root.join(CourseEntity_.studentEntitySet);
+
+			Predicate restrictions = criteriaBuilder.conjunction();
+			if (null != courseCriteria.getTeacherId()) {
+				restrictions = criteriaBuilder.and(restrictions,
+						criteriaBuilder.equal(teacherJoin.get(WeChatUserEntity_.id), courseCriteria.getTeacherId()));
+			}
+			if (null != courseCriteria.getStudentId()) {
+				restrictions = criteriaBuilder.and(restrictions,
+						criteriaBuilder.equal(studentJoin.get(WeChatUserEntity_.id), courseCriteria.getStudentId()));
+			}
+			if (null != courseCriteria.getStartDate()) {
+				restrictions = criteriaBuilder.and(restrictions,
+						criteriaBuilder.greaterThan(root.get(CourseEntity_.startDate), courseCriteria.getStartDate()));
+			}
+			if (null != courseCriteria.getEndDate()) {
+				restrictions = criteriaBuilder.and(restrictions,
+						criteriaBuilder.lessThan(root.get(CourseEntity_.endDate), courseCriteria.getEndDate()));
+			}
+			return restrictions;
+		}, pageable);
+
+		List<Course> courseList = new ArrayList<>();
+		for (CourseEntity eachCourseEntity : courseEntityPage.getContent()) {
+			courseList.add(new Course(eachCourseEntity));
+		}
+
+		return new PageImpl<Course>(courseList, pageable, courseEntityPage.getTotalElements());
 	}
 
 	/*

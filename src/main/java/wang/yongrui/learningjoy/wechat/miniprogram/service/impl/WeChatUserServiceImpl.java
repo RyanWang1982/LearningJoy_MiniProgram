@@ -9,6 +9,7 @@ import static wang.yongrui.learningjoy.wechat.miniprogram.util.PatchBeanUtils.*;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.EntityManager;
 import javax.persistence.metamodel.Attribute;
 
 import org.apache.commons.collections4.CollectionUtils;
@@ -36,6 +37,9 @@ import wang.yongrui.learningjoy.wechat.miniprogram.service.WeChatUserService;
 @Service
 @Transactional
 public class WeChatUserServiceImpl implements WeChatUserService {
+
+	@Autowired
+	private EntityManager entityManager;
 
 	@Autowired
 	private WeChatUserRepository userRepository;
@@ -96,6 +100,8 @@ public class WeChatUserServiceImpl implements WeChatUserService {
 		}
 
 		userEntity = userRepository.saveAndFlush(userEntity);
+		entityManager.refresh(userEntity);
+
 		Set<Attribute<?, ?>> includedAttributeSet = new HashSet<>();
 		includedAttributeSet.add(WeChatUserEntity_.userSettingEntity);
 		includedAttributeSet.add(WeChatUserEntity_.childEntitySet);
