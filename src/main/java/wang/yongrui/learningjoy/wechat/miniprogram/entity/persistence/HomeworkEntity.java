@@ -36,6 +36,6 @@ public class HomeworkEntity extends HomeworkBasic {
 	@OneToMany
 	@JoinTable(name = "HOMEWORK_FILE", joinColumns = { @JoinColumn(name = "homework_id") }, inverseJoinColumns = {
 			@JoinColumn(name = "file_id") })
-	private Set<FileEntity> fileEntitySet;
+	private Set<FileInfoEntity> fileEntitySet;
 
 }

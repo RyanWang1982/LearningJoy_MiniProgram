@@ -22,7 +22,7 @@ import wang.yongrui.wechat.fundamental.entity.fundamental.AuditingEntity;
 @MappedSuperclass
 @Getter
 @Setter
-public class FileBasic extends AuditingEntity {
+public class FileInfoBasic extends AuditingEntity {
 
 	@Id
 	@GeneratedValue
@@ -37,5 +37,7 @@ public class FileBasic extends AuditingEntity {
 
 	@Column(nullable = false)
 	private String url;
+
+	private Boolean temporary;
 
 }

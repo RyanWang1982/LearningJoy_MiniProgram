@@ -7,7 +7,7 @@ import javax.persistence.Entity;
 
 import lombok.Getter;
 import lombok.Setter;
-import wang.yongrui.learningjoy.wechat.miniprogram.entity.basic.FileBasic;
+import wang.yongrui.learningjoy.wechat.miniprogram.entity.basic.FileInfoBasic;
 
 /**
  * @author Wang Yongrui
@@ -16,6 +16,6 @@ import wang.yongrui.learningjoy.wechat.miniprogram.entity.basic.FileBasic;
 @Entity(name = "FILE")
 @Getter
 @Setter
-public class FileEntity extends FileBasic {
+public class FileInfoEntity extends FileInfoBasic {
 
 }

@@ -36,6 +36,6 @@ public class StudentPerformanceEntity extends StudentPerformanceBasic {
 	@OneToMany
 	@JoinTable(name = "STUDENT_PERFORMANCE_FILE", joinColumns = {
 			@JoinColumn(name = "student_performance_id") }, inverseJoinColumns = { @JoinColumn(name = "file_id") })
-	private Set<FileEntity> fileEntitySet;
+	private Set<FileInfoEntity> fileEntitySet;
 
 }

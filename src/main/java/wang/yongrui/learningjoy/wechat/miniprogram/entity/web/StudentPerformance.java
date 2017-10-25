@@ -36,7 +36,7 @@ public class StudentPerformance extends StudentPerformanceBasic implements Seria
 
 	@Getter
 	@Setter
-	private Set<File> fileSet;
+	private Set<FileInfo> fileSet;
 
 	/**
 	 * 
@@ -56,7 +56,7 @@ public class StudentPerformance extends StudentPerformanceBasic implements Seria
 				WeChatUser student = new WeChatUser();
 				BeanUtils.copyProperties(studentPerformanceEntity.getStudentEntity(), student);
 			}
-			setFileSet(getTargetSetFromSourceSet(studentPerformanceEntity.getFileEntitySet(), File.class));
+			setFileSet(getTargetSetFromSourceSet(studentPerformanceEntity.getFileEntitySet(), FileInfo.class));
 		}
 	}
 
