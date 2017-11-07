@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import wang.yongrui.learningjoy.wechat.miniprogram.entity.web.FileInfo;
+import wang.yongrui.learningjoy.wechat.miniprogram.service.FileInfoService;
 
 /**
  * @author Wang Yongrui
