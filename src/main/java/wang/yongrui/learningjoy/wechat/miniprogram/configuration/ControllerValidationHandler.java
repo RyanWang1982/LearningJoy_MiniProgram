@@ -4,6 +4,7 @@
 package wang.yongrui.learningjoy.wechat.miniprogram.configuration;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
@@ -33,14 +34,15 @@ public class ControllerValidationHandler {
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ResponseBody
-	public List<ErrorInfo> processValidationError(MethodArgumentNotValidException ex) {
-		List<ObjectError> objectErrorList = ex.getBindingResult().getAllErrors();
+	public List<ErrorInfo> processValidationError(MethodArgumentNotValidException exception) {
+		List<ObjectError> objectErrorList = exception.getBindingResult().getAllErrors();
 		List<ErrorInfo> errorInfoList = new ArrayList<>();
+		Long time = Calendar.getInstance().getTimeInMillis();
+		Locale currentLocale = LocaleContextHolder.getLocale();
 		for (ObjectError objectError : objectErrorList) {
-			Locale currentLocale = LocaleContextHolder.getLocale();
 			String message = messageSource.getMessage(objectError.getDefaultMessage(), objectError.getArguments(),
 					currentLocale);
-			errorInfoList.add(new ErrorInfo(objectError.getCode(), message));
+			errorInfoList.add(new ErrorInfo(objectError.getCode(), message, time));
 		}
 
 		return errorInfoList;

@@ -3,8 +3,6 @@
  */
 package wang.yongrui.learningjoy.wechat.miniprogram.controller.validation;
 
-import java.util.Calendar;
-
 import lombok.Getter;
 import lombok.Setter;
 
@@ -20,16 +18,18 @@ public class ErrorInfo {
 
 	private String message;
 
-	private Long time = Calendar.getInstance().getTimeInMillis();
+	private Long time;
 
 	/**
 	 * @param code
 	 * @param message
+	 * @param time
 	 */
-	public ErrorInfo(String code, String message) {
+	public ErrorInfo(String code, String message, Long time) {
 		super();
 		this.code = code;
 		this.message = message;
+		this.time = time;
 	}
 
 }
