@@ -35,7 +35,7 @@ public class ApplicationConfiguration {
 	@Bean
 	public MessageSource messageSource() {
 		ReloadableResourceBundleMessageSource messageBundle = new ReloadableResourceBundleMessageSource();
-		messageBundle.setBasenames("classpath:message/messages");
+		messageBundle.setBasenames("classpath:message/messages", "classpath:message/errors");
 		messageBundle.setDefaultEncoding("UTF-8");
 
 		return messageBundle;
