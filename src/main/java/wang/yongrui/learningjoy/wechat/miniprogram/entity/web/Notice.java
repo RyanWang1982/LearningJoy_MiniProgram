@@ -36,10 +36,10 @@ public class Notice extends NoticeBasic implements Serializable {
 
 	@Getter
 	@Setter
-	private Set<WeChatUser> recipientSet;
+	private Set<UserNotice> recipientNoticeSet;
 
 	/**
-	 * 
+	 *
 	 */
 	public Notice() {
 		super();
@@ -56,7 +56,8 @@ public class Notice extends NoticeBasic implements Serializable {
 				WeChatUser sender = new WeChatUser();
 				BeanUtils.copyProperties(noticeEntity.getSenderEntity(), sender);
 			}
-			setRecipientSet(getTargetSetFromSourceSet(noticeEntity.getRecipientEntitySet(), WeChatUser.class));
+			setRecipientNoticeSet(
+					getTargetSetFromSourceSet(noticeEntity.getRecipientNoticeEntitySet(), UserNotice.class));
 		}
 	}
 

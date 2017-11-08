@@ -7,8 +7,7 @@ import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import lombok.Getter;
@@ -28,9 +27,7 @@ public class NoticeEntity extends NoticeBasic {
 	@JoinColumn(name = "sender_id")
 	private WeChatUserEntity senderEntity;
 
-	@ManyToMany
-	@JoinTable(name = "USER_NOTICE", joinColumns = { @JoinColumn(name = "notice_id") }, inverseJoinColumns = {
-			@JoinColumn(name = "user_id") })
-	private Set<WeChatUserEntity> recipientEntitySet;
+	@OneToMany(mappedBy = "user")
+	private Set<UserNoticeEntity> recipientNoticeEntitySet;
 
 }

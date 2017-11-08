@@ -11,6 +11,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -21,6 +23,8 @@ import wang.yongrui.learningjoy.wechat.miniprogram.entity.basic.StudentPerforman
  *
  */
 @Entity(name = "STUDENT_PERFORMANCE")
+// One student only get one performance per lesson
+@Table(uniqueConstraints = { @UniqueConstraint(columnNames = { "lesson_id", "student_id" }) })
 @Getter
 @Setter
 public class StudentPerformanceEntity extends StudentPerformanceBasic {
