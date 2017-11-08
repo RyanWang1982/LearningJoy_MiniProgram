@@ -39,10 +39,13 @@ import wang.yongrui.learningjoy.wechat.miniprogram.service.CourseService;
 public class CourseController {
 
 	@Autowired
+	private HttpServletRequest request;
+
+	@Autowired
 	private CourseService courseService;
 
 	@InitBinder
-	public void initBainder(DataBinder binder, HttpServletRequest request) {
+	public void initBainder(DataBinder binder) {
 		if ("POST".equals(request.getMethod()) && "/course".equals(request.getServletPath())) {
 			binder.replaceValidators(new CourseCreationValidator());
 		}
