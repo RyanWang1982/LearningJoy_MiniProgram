@@ -22,6 +22,8 @@ import wang.yongrui.learningjoy.wechat.miniprogram.entity.persistence.NoticeEnti
  * @author Wang Yongrui
  *
  */
+@Getter
+@Setter
 @JsonInclude(value = Include.NON_EMPTY)
 public class Notice extends NoticeBasic implements Serializable {
 
@@ -30,12 +32,8 @@ public class Notice extends NoticeBasic implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@Getter
-	@Setter
 	private WeChatUser sender;
 
-	@Getter
-	@Setter
 	private Set<UserNotice> recipientNoticeSet;
 
 	/**

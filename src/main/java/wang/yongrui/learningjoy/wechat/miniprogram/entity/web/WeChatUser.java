@@ -31,6 +31,8 @@ import wang.yongrui.wechat.fundamental.entity.basic.UserBasic;
  * @author Wang Yongrui
  *
  */
+@Getter
+@Setter
 @JsonIgnoreProperties(value = { "authorities", "password", "accountNonExpired", "accountNonLocked",
 		"credentialsNonExpired", "enabled" })
 @JsonInclude(value = Include.NON_EMPTY)
@@ -41,32 +43,18 @@ public class WeChatUser extends UserBasic implements UserDetails {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@Getter
-	@Setter
 	private WeChatUserBasic weChatInfo;
 
-	@Getter
-	@Setter
 	private UserSetting userSetting;
 
-	@Getter
-	@Setter
 	private Set<UserChild> childSet;
 
-	@Getter
-	@Setter
 	private Set<UserParent> parentSet;
 
-	@Getter
-	@Setter
 	private Set<Course> teacherCourseSet;
 
-	@Getter
-	@Setter
 	private Set<Course> studentCourseSet;
 
-	@Getter
-	@Setter
 	private Set<Notice> noticeSet;
 
 	/**

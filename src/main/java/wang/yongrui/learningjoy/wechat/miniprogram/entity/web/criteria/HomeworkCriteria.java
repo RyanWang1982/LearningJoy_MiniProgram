@@ -17,14 +17,16 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class CourseCriteria implements Serializable {
+public class HomeworkCriteria implements Serializable {
 
 	/**
 	 *
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private Long teacherId;
+	private Long courseId;
+
+	private Long lessonId;
 
 	private Long studentId;
 

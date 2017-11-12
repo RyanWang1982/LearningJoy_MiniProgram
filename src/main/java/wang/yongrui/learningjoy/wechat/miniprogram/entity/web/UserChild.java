@@ -19,6 +19,8 @@ import wang.yongrui.learningjoy.wechat.miniprogram.entity.persistence.UserChildE
  * @author Wang Yongrui
  *
  */
+@Getter
+@Setter
 @JsonInclude(value = Include.NON_EMPTY)
 public class UserChild extends UserChildBasic implements Serializable {
 
@@ -27,8 +29,6 @@ public class UserChild extends UserChildBasic implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@Getter
-	@Setter
 	private WeChatUser child;
 
 	/**

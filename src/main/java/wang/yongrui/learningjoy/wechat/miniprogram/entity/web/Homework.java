@@ -22,6 +22,8 @@ import wang.yongrui.learningjoy.wechat.miniprogram.entity.persistence.HomeworkEn
  * @author Wang Yongrui
  *
  */
+@Getter
+@Setter
 @JsonInclude(value = Include.NON_EMPTY)
 public class Homework extends HomeworkBasic implements Serializable {
 
@@ -30,16 +32,12 @@ public class Homework extends HomeworkBasic implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@Getter
-	@Setter
 	private WeChatUser student;
 
-	@Getter
-	@Setter
 	private Set<FileInfo> fileSet;
 
 	/**
-	 * 
+	 *
 	 */
 	public Homework() {
 		super();

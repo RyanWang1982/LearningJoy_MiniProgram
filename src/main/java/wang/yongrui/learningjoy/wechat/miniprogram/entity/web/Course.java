@@ -25,6 +25,8 @@ import wang.yongrui.learningjoy.wechat.miniprogram.entity.persistence.CourseEnti
  * @author Wang Yongrui
  *
  */
+@Getter
+@Setter
 @JsonInclude(value = Include.NON_EMPTY)
 public class Course extends CourseBasic implements Serializable {
 
@@ -33,16 +35,10 @@ public class Course extends CourseBasic implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@Getter
-	@Setter
 	private Set<WeChatUser> teacherSet;
 
-	@Getter
-	@Setter
 	private Set<WeChatUser> studentSet;
 
-	@Getter
-	@Setter
 	private Set<Lesson> lessonSet;
 
 	/**

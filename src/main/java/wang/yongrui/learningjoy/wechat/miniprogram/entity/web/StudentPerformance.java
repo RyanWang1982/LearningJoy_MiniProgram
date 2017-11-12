@@ -8,6 +8,8 @@ import static wang.yongrui.learningjoy.wechat.miniprogram.util.EntityUtils.*;
 import java.io.Serializable;
 import java.util.Set;
 
+import javax.persistence.metamodel.Attribute;
+
 import org.springframework.beans.BeanUtils;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -17,11 +19,14 @@ import lombok.Getter;
 import lombok.Setter;
 import wang.yongrui.learningjoy.wechat.miniprogram.entity.basic.StudentPerformanceBasic;
 import wang.yongrui.learningjoy.wechat.miniprogram.entity.persistence.StudentPerformanceEntity;
+import wang.yongrui.learningjoy.wechat.miniprogram.entity.persistence.StudentPerformanceEntity_;
 
 /**
  * @author Wang Yongrui
  *
  */
+@Getter
+@Setter
 @JsonInclude(value = Include.NON_EMPTY)
 public class StudentPerformance extends StudentPerformanceBasic implements Serializable {
 
@@ -30,16 +35,14 @@ public class StudentPerformance extends StudentPerformanceBasic implements Seria
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@Getter
-	@Setter
+	private Lesson lesson;
+
 	private WeChatUser student;
 
-	@Getter
-	@Setter
 	private Set<FileInfo> fileSet;
 
 	/**
-	 * 
+	 *
 	 */
 	public StudentPerformance() {
 		super();
@@ -52,9 +55,28 @@ public class StudentPerformance extends StudentPerformanceBasic implements Seria
 		super();
 		if (null != studentPerformanceEntity) {
 			BeanUtils.copyProperties(studentPerformanceEntity, this);
-			if (null != studentPerformanceEntity.getStudentEntity()) {
+			setFileSet(getTargetSetFromSourceSet(studentPerformanceEntity.getFileEntitySet(), FileInfo.class));
+		}
+	}
+
+	/**
+	 * @param studentPerformanceEntity
+	 * @param includedAttributeSet
+	 */
+	public StudentPerformance(StudentPerformanceEntity studentPerformanceEntity,
+			Set<Attribute<?, ?>> includedAttributeSet) {
+		super();
+		if (null != studentPerformanceEntity) {
+			BeanUtils.copyProperties(studentPerformanceEntity, this);
+			if (includedAttributeSet.contains(StudentPerformanceEntity_.lessonEntity)) {
+				Lesson lesson = new Lesson();
+				BeanUtils.copyProperties(studentPerformanceEntity.getLessonEntity(), lesson);
+				setLesson(lesson);
+			}
+			if (includedAttributeSet.contains(StudentPerformanceEntity_.studentEntity)) {
 				WeChatUser student = new WeChatUser();
 				BeanUtils.copyProperties(studentPerformanceEntity.getStudentEntity(), student);
+				setStudent(student);
 			}
 			setFileSet(getTargetSetFromSourceSet(studentPerformanceEntity.getFileEntitySet(), FileInfo.class));
 		}

@@ -37,7 +37,7 @@ public class StudentPerformanceBasic extends AuditingEntity {
 
 	private String good;
 
-	private String poor;
+	private String improvable;
 
 	private String attention;
 

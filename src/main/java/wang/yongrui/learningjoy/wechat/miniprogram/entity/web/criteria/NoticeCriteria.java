@@ -17,16 +17,16 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class CourseCriteria implements Serializable {
+public class NoticeCriteria implements Serializable {
 
 	/**
 	 *
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private Long teacherId;
+	private Long senderId;
 
-	private Long studentId;
+	private Long recipientId;
 
 	@JsonFormat(pattern = "yyyy-MM-dd")
 	private Calendar startDate;
