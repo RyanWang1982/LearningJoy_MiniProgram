@@ -12,6 +12,9 @@ spring:
     generate-ddl: true
     hibernate:
       ddl-auto: create
+  http:
+    multipart:
+      max-file-size: 100MB
 
 # Server
 server:
