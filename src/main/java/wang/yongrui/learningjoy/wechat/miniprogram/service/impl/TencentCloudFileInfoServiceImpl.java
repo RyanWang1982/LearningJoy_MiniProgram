@@ -60,8 +60,8 @@ public class TencentCloudFileInfoServiceImpl implements FileInfoService {
 
 		FileInfo fileInfo = null;
 		try {
-			UploadFileRequest uploadFileRequest = new UploadFileRequest(bucketName, "/" + file.getOriginalFilename(),
-					file.getBytes());
+			String fileCosPath = "/" + file.getOriginalFilename();
+			UploadFileRequest uploadFileRequest = new UploadFileRequest(bucketName, fileCosPath, file.getBytes());
 			String uploadFileRet = cosClient.uploadFile(uploadFileRequest);
 			Map<String, Object> tencentCloudCosJsonMap = new HashMap<String, Object>();
 			tencentCloudCosJsonMap = new ObjectMapper().readValue(uploadFileRet, tencentCloudCosJsonMap.getClass());
@@ -74,10 +74,13 @@ public class TencentCloudFileInfoServiceImpl implements FileInfoService {
 				fileInfoEntity = fileInfoRepository.saveAndFlush(fileInfoEntity);
 				fileInfo = new FileInfo(fileInfoEntity);
 			} else {
-
+				throw new RuntimeException("Error occurs, when uploading file to Tencent Cloud: " + fileCosPath
+						+ "; errorCode: " + tencentCloudCosJsonMap.get("code") + "; errorMessage: "
+						+ tencentCloudCosJsonMap.get("message"));
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
+			throw new RuntimeException(e.getMessage());
 		}
 
 		return fileInfo;
