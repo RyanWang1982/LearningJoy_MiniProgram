@@ -75,7 +75,8 @@ public class ControllerValidationHandler {
 		logger.error(errorMessage.toString());
 
 		Locale currentLocale = LocaleContextHolder.getLocale();
-		String message = messageSource.getMessage("system.error", new Object[] { time.toString() }, currentLocale);
+		String message = messageSource.getMessage("system.error.message", new Object[] { time.toString() },
+				currentLocale);
 		ErrorInfo errorInfo = new ErrorInfo("system.error", message, time);
 
 		return errorInfo;

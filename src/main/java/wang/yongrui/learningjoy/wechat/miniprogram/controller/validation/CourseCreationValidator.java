@@ -35,10 +35,10 @@ public class CourseCreationValidator implements Validator {
 	public void validate(Object target, Errors errors) {
 		Course targetCourse = (Course) target;
 		if (null == targetCourse.getName() || StringUtils.isBlank(targetCourse.getName())) {
-			errors.reject("course.creation.name", null, "course.creation.name");
+			errors.reject("course.creation.name", null, "course.creation.name.invalid.message");
 		}
 		if (null == targetCourse.getAddress() || StringUtils.isBlank(targetCourse.getAddress())) {
-			errors.reject("course.creation.address", null, "course.creation.address");
+			errors.reject("course.creation.address", null, "course.creation.address.invalid.message");
 		}
 	}
 
