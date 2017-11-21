@@ -1,7 +1,7 @@
 /**
  * 
  */
-package wang.yongrui.learningjoy.wechat.miniprogram.controller.validation;
+package wang.yongrui.learningjoy.wechat.miniprogram.controller.validator;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.validation.Errors;

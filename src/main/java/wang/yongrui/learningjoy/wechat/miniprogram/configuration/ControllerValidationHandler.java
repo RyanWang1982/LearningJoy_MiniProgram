@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-import wang.yongrui.learningjoy.wechat.miniprogram.controller.validation.ErrorInfo;
+import wang.yongrui.learningjoy.wechat.miniprogram.entity.web.ErrorInfo;
 
 /**
  * @author Wang Yongrui

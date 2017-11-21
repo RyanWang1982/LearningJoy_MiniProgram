@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import wang.yongrui.learningjoy.wechat.miniprogram.controller.validation.CourseCreationValidator;
+import wang.yongrui.learningjoy.wechat.miniprogram.controller.validator.CourseCreationValidator;
 import wang.yongrui.learningjoy.wechat.miniprogram.entity.web.Course;
 import wang.yongrui.learningjoy.wechat.miniprogram.entity.web.criteria.CourseCriteria;
 import wang.yongrui.learningjoy.wechat.miniprogram.service.CourseService;
