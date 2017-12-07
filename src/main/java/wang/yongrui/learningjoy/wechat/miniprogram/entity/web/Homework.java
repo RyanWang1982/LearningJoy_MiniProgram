@@ -34,7 +34,7 @@ public class Homework extends HomeworkBasic implements Serializable {
 
 	private WeChatUser student;
 
-	private Set<FileInfo> fileSet;
+	private Set<FileInfo> fileInfoSet;
 
 	/**
 	 *
@@ -54,7 +54,7 @@ public class Homework extends HomeworkBasic implements Serializable {
 				WeChatUser student = new WeChatUser();
 				BeanUtils.copyProperties(homeworkEntity.getStudentEntity(), student);
 			}
-			setFileSet(getTargetSetFromSourceSet(homeworkEntity.getFileEntitySet(), FileInfo.class));
+			setFileInfoSet(getTargetSetFromSourceSet(homeworkEntity.getFileInfoEntitySet(), FileInfo.class));
 		}
 	}
 

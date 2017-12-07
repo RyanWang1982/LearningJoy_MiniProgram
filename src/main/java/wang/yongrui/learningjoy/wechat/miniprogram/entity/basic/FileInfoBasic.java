@@ -36,6 +36,9 @@ public class FileInfoBasic extends AuditingEntity {
 	private FileType type;
 
 	@Column(nullable = false)
+	private String path;
+
+	@Column(nullable = false)
 	private String url;
 
 	private Boolean temporary;
