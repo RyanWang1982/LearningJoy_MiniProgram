@@ -4,19 +4,30 @@
 package wang.yongrui.learningjoy.wechat.miniprogram.service.impl;
 
 import static org.springframework.beans.BeanUtils.*;
+import static wang.yongrui.learningjoy.wechat.miniprogram.util.PatchBeanUtils.*;
 
 import java.util.HashSet;
+import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.EntityManager;
+import javax.persistence.criteria.Join;
+import javax.persistence.criteria.Predicate;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import wang.yongrui.learningjoy.wechat.miniprogram.entity.persistence.CourseEntity;
+import wang.yongrui.learningjoy.wechat.miniprogram.entity.persistence.CourseEntity_;
 import wang.yongrui.learningjoy.wechat.miniprogram.entity.persistence.FileInfoEntity;
 import wang.yongrui.learningjoy.wechat.miniprogram.entity.persistence.HomeworkEntity;
+import wang.yongrui.learningjoy.wechat.miniprogram.entity.persistence.HomeworkEntity_;
+import wang.yongrui.learningjoy.wechat.miniprogram.entity.persistence.LessonEntity;
+import wang.yongrui.learningjoy.wechat.miniprogram.entity.persistence.LessonEntity_;
 import wang.yongrui.learningjoy.wechat.miniprogram.entity.persistence.WeChatUserEntity;
+import wang.yongrui.learningjoy.wechat.miniprogram.entity.persistence.WeChatUserEntity_;
 import wang.yongrui.learningjoy.wechat.miniprogram.entity.web.FileInfo;
 import wang.yongrui.learningjoy.wechat.miniprogram.entity.web.Homework;
 import wang.yongrui.learningjoy.wechat.miniprogram.entity.web.criteria.HomeworkCriteria;
@@ -86,8 +97,7 @@ public class HomeworkServiceImpl implements HomeworkService {
 	 */
 	@Override
 	public Homework retrieve(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+		return new Homework(homeworkRepository.findOne(id));
 	}
 
 	/*
@@ -99,8 +109,44 @@ public class HomeworkServiceImpl implements HomeworkService {
 	 */
 	@Override
 	public Set<Homework> retrieveAllByCriteria(HomeworkCriteria homeworkCriteria) {
-		// TODO Auto-generated method stub
-		return null;
+		List<HomeworkEntity> allHomeworkEntityList = homeworkRepository
+				.findAll((root, criteriaQuery, criteriaBuilder) -> {
+					criteriaQuery.distinct(true);
+					Join<LessonEntity, CourseEntity> courseJoin = root.join(HomeworkEntity_.lessonEntity)
+							.join(LessonEntity_.courseEntity);
+					Join<HomeworkEntity, LessonEntity> lessonJoin = root.join(HomeworkEntity_.lessonEntity);
+					Join<HomeworkEntity, WeChatUserEntity> studentJoin = root.join(HomeworkEntity_.studentEntity);
+
+					Predicate restrictions = criteriaBuilder.conjunction();
+					if (null != homeworkCriteria.getCourseId()) {
+						restrictions = criteriaBuilder.and(restrictions, criteriaBuilder
+								.equal(courseJoin.get(CourseEntity_.id), homeworkCriteria.getCourseId()));
+					}
+					if (null != homeworkCriteria.getLessonId()) {
+						restrictions = criteriaBuilder.and(restrictions, criteriaBuilder
+								.equal(lessonJoin.get(LessonEntity_.id), homeworkCriteria.getLessonId()));
+					}
+					if (null != homeworkCriteria.getStudentId()) {
+						restrictions = criteriaBuilder.and(restrictions, criteriaBuilder
+								.greaterThan(studentJoin.get(WeChatUserEntity_.id), homeworkCriteria.getStudentId()));
+					}
+					if (null != homeworkCriteria.getStartDate()) {
+						restrictions = criteriaBuilder.and(restrictions, criteriaBuilder
+								.greaterThan(root.get(HomeworkEntity_.deadline), homeworkCriteria.getStartDate()));
+					}
+					if (null != homeworkCriteria.getEndDate()) {
+						restrictions = criteriaBuilder.and(restrictions, criteriaBuilder
+								.lessThan(root.get(HomeworkEntity_.deadline), homeworkCriteria.getEndDate()));
+					}
+					return restrictions;
+				});
+
+		Set<Homework> allHomeworkSet = new LinkedHashSet<>();
+		for (HomeworkEntity eachHomeworkEntity : allHomeworkEntityList) {
+			allHomeworkSet.add(new Homework(eachHomeworkEntity));
+		}
+
+		return allHomeworkSet;
 	}
 
 	/*
@@ -112,8 +158,10 @@ public class HomeworkServiceImpl implements HomeworkService {
 	 */
 	@Override
 	public Homework patchUpdate(Homework homework) {
-		// TODO Auto-generated method stub
-		return null;
+		HomeworkEntity homeworkEntity = homeworkRepository.findOne(homework.getId());
+		updateProperties(homework, homeworkEntity, false);
+		homeworkEntity = homeworkRepository.saveAndFlush(homeworkEntity);
+		return new Homework(homeworkEntity);
 	}
 
 	/*
@@ -125,8 +173,10 @@ public class HomeworkServiceImpl implements HomeworkService {
 	 */
 	@Override
 	public Homework putUpdate(Homework homework) {
-		// TODO Auto-generated method stub
-		return null;
+		HomeworkEntity homeworkEntity = homeworkRepository.findOne(homework.getId());
+		updateProperties(homework, homeworkEntity, true);
+		homeworkEntity = homeworkRepository.saveAndFlush(homeworkEntity);
+		return new Homework(homeworkEntity);
 	}
 
 }

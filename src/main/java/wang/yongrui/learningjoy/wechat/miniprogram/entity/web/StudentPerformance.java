@@ -39,7 +39,7 @@ public class StudentPerformance extends StudentPerformanceBasic implements Seria
 
 	private WeChatUser student;
 
-	private Set<FileInfo> fileSet;
+	private Set<FileInfo> fileInfoSet;
 
 	/**
 	 *
@@ -55,7 +55,7 @@ public class StudentPerformance extends StudentPerformanceBasic implements Seria
 		super();
 		if (null != studentPerformanceEntity) {
 			BeanUtils.copyProperties(studentPerformanceEntity, this);
-			setFileSet(getTargetSetFromSourceSet(studentPerformanceEntity.getFileEntitySet(), FileInfo.class));
+			setFileInfoSet(getTargetSetFromSourceSet(studentPerformanceEntity.getFileInfoEntitySet(), FileInfo.class));
 		}
 	}
 
@@ -78,7 +78,7 @@ public class StudentPerformance extends StudentPerformanceBasic implements Seria
 				BeanUtils.copyProperties(studentPerformanceEntity.getStudentEntity(), student);
 				setStudent(student);
 			}
-			setFileSet(getTargetSetFromSourceSet(studentPerformanceEntity.getFileEntitySet(), FileInfo.class));
+			setFileInfoSet(getTargetSetFromSourceSet(studentPerformanceEntity.getFileInfoEntitySet(), FileInfo.class));
 		}
 	}
 
